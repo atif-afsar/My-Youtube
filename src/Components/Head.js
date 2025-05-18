@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/Constants";
@@ -10,16 +10,31 @@ const Head = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const searchCache = useSelector((store) => store.search);
-
   const dispatch = useDispatch();
 
+  const getSearchSuggestions = useCallback(
+    async (query) => {
+      try {
+        const data = await fetch(YOUTUBE_SEARCH_API + query);
+        const json = await data.json();
+        setSuggestions(json[1]);
+
+        dispatch(cacheResults({
+          [query]: json[1]
+        }));
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      }
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
-    const query = searchQuery; 
+    const query = searchQuery;
     const timer = setTimeout(() => {
-      if(searchCache[searchQuery]) {
-        setSuggestions(searchCache[searchQuery]);
-      }else
-      if (query.trim()) {
+      if (searchCache[query]) {
+        setSuggestions(searchCache[query]);
+      } else if (query.trim()) {
         getSearchSuggestions(query);
       } else {
         setSuggestions([]);
@@ -27,22 +42,7 @@ const Head = () => {
     }, 200);
 
     return () => clearTimeout(timer);
-  }, [searchQuery]);
-
-  const getSearchSuggestions = async (query) => {
-    try {
-      const data = await fetch(YOUTUBE_SEARCH_API + query);
-      const json = await data.json();
-      setSuggestions(json[1]); 
-
-      dispatch(cacheResults({
-        [searchQuery]: json[1]
-      }))
-      
-    } catch (error) {
-      console.error("Error fetching suggestions:", error);
-    }
-  };
+  }, [searchQuery, searchCache, getSearchSuggestions]);
 
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
@@ -96,7 +96,7 @@ const Head = () => {
                 setShowSuggestions(true);
               }}
               onFocus={() => setShowSuggestions(true)}
-              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)} // slight delay to allow clicks
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)} // delay for click
             />
             <button className="border border-gray-300 px-4 py-2 bg-gray-100 rounded-r-full hover:bg-gray-200">
               {searchIcon}
@@ -110,7 +110,7 @@ const Head = () => {
                 <li
                   key={index}
                   className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onMouseDown={() => setSearchQuery(s)} // auto-fill input
+                  onMouseDown={() => setSearchQuery(s)}
                 >
                   {searchIcon} {s}
                 </li>
