@@ -5,7 +5,7 @@ import { addMessage } from '../utils/ChatSlice';
 import { generateRandomNames, makeRandomMessage } from '../utils/helper';
 
 const LiveChat = () => {
-  const [liveMessage, setLiveMessage] = useState(""); 
+  const [liveMessage, setLiveMessage] = useState('');
 
   const dispatch = useDispatch();
   const chatMessages = useSelector((store) => store.chat.messages);
@@ -21,7 +21,7 @@ const LiveChat = () => {
     }, 2000);
 
     return () => clearInterval(i);
-  }, []);
+  }, [dispatch]); // ✅ FIXED: Added dispatch to dependencies
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const LiveChat = () => {
       })
     );
 
-    setLiveMessage(""); // ✅ clears input after submission
+    setLiveMessage('');
   };
 
   return (
@@ -57,8 +57,8 @@ const LiveChat = () => {
       {/* Chat Input */}
       <form onSubmit={handleSubmit} className="flex items-center gap-2">
         <input
-          value={liveMessage} // ✅ bind input to state
-          onChange={(e) => setLiveMessage(e.target.value)} 
+          value={liveMessage}
+          onChange={(e) => setLiveMessage(e.target.value)}
           type="text"
           placeholder="Type a message..."
           className="flex-grow p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
