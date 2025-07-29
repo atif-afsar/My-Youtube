@@ -2,8 +2,8 @@
 
 A modern, YouTube clone built with **React**, **Redux Toolkit**, and **Tailwind CSS**. This project replicates the core features of YouTube including live chat simulation, video search using the YouTube Data API, and a clean, user-friendly UI.
 
-🌐 **Live Demo:** [my-youtube-atif.netlify.app](https://my-youtube-atif.netlify.app)  
-📁 **GitHub Repo:** [https://github.com/atif-afsar/My-Youtube](https://github.com/atif-afsar/My-Youtube)
+🌐 **Live Demo:** [https://github.com/atif-afsar/My-Youtube/releases](https://github.com/atif-afsar/My-Youtube/releases)  
+📁 **GitHub Repo:** [https://github.com/atif-afsar/My-Youtube/releases](https://github.com/atif-afsar/My-Youtube/releases)
 
 ---
 
@@ -38,8 +38,8 @@ src/
 ├── Components/ → All reusable components
 ├── Pages/ → Main pages like WatchPage, MainContainer
 ├── utils/ → Redux slices, constants, helpers
-├── App.js → Main app structure
-└── index.js → Entry point
+├── https://github.com/atif-afsar/My-Youtube/releases → Main app structure
+└── https://github.com/atif-afsar/My-Youtube/releases → Entry point
 ##
 ---
 
@@ -48,7 +48,7 @@ src/
 1. Clone the repo
 
    ```bash
-   git clone https://github.com/atif-afsar/My-Youtube.git
+   git clone https://github.com/atif-afsar/My-Youtube/releases
    cd My-Youtube
 
 ```
@@ -65,7 +65,7 @@ npm start
 
 🌙 Dark Mode
 
-🧠 Real Chat Integration (Firebase or socket.io)
+🧠 Real Chat Integration (Firebase or https://github.com/atif-afsar/My-Youtube/releases)
 
 🗂 Playlist & Channel Pages
 
@@ -87,6 +87,6 @@ Random name & message generators from [ChatGPT idea 💡]
 
 📫 Connect with Me
 
-LinkedIn: linkedin.com/in/atif-afsar
+LinkedIn: https://github.com/atif-afsar/My-Youtube/releases
 
-GitHub: github.com/atif-afsar
+GitHub: https://github.com/atif-afsar/My-Youtube/releases
